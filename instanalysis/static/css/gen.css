@@ -1,0 +1,45 @@
+.inline{
+	display: inline-table;
+}
+.dblock{
+	display: block;
+}
+.hidden{
+	display: none !important;
+}
+.tright{
+	text-align: right;
+}
+
+.tleft{
+	text-align: left;
+}
+.tcenter{
+	text-align: center;
+}
+.fleft{
+	float: left;
+}
+.fright{
+	float: right;
+}
+.miniinput{
+	border: 0px;
+	border-bottom: #4a4a4a 1px solid;
+	color: #4a4a4a;
+	font-size: 10px;
+	width: 20px;
+	text-align: center;
+	margin: 0px 5px 0px 5px;
+}
+.miniinput,
+.miniinput:hover, 
+.miniinput:active, 
+.miniinput:focus
+{
+    outline:0px !important;
+    -webkit-appearance:none;
+}
+.bigselect{
+	width: 400px;
+}

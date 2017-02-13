@@ -1,0 +1,21 @@
+{% extends "registration/base.html" %}
+{% load i18n %}
+{% load widget_tweaks %}
+
+{% block form %}
+	<form class="form" method="POST">
+		{% csrf_token %}
+		{% render_field form.username placeholder="Username" %}
+		{% render_field form.password placeholder="Password" %}
+		<button type="submit" id="login-button">Login</button>
+	</form>
+	{% if form.error_msg %}
+		<div class="error_msg">{{ form.error_msg }}</div>
+	{% endif %}
+{% endblock %}
+
+{% block extra-js %}
+	<script>
+
+	</script>
+{% endblock %}

@@ -1,0 +1,88 @@
+
+
+@import url('../../css/quirk.css');
+@import url('prettify.css');
+
+
+body {
+  line-height: 21px;
+  background: #fff;
+  color: #636e7b;
+  letter-spacing: normal;x`
+}
+
+.logopanel {
+  padding: 10px 0;
+  margin-bottom: 10px;
+}
+
+.logopanel h1 {
+  font-size: 30px;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  letter-spacing: -1.5px;
+  color: #1d2939;
+  line-height: 30px;
+  margin: 0;
+}
+
+.logopanel h1 span {
+   color: #1caf9a;
+}
+
+.leftmenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.leftmenu li a {
+  display: block;
+  color: #636e7b;
+}
+
+.leftmenu li a:hover {
+  text-decoration: none;
+  color: #1d2939;
+}
+
+.leftmenu > li > a {
+  font-weight: 500;
+  color: #515a65;
+  background: #d7dadd;
+  padding: 7px 10px;
+  margin-bottom: 2px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.leftmenu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.leftmenu ul li a {
+  display: block;
+  padding: 5px 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.leftmenu ul li:last-child a {
+  border-bottom: 0;
+}
+
+.content {
+  background: #fff;
+  padding: 20px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.sectitle {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.sectitle.mb0 { margin-bottom: 0; }

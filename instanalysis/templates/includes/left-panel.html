@@ -1,0 +1,96 @@
+  <div class="leftpanel">
+    <div class="leftpanelinner">
+
+      <!-- ################## LEFT PANEL PROFILE ################## -->
+
+
+      <ul class="nav nav-tabs nav-justified nav-sidebar">
+        <li class="tooltips active" data-toggle="tooltip" title="Main Menu"><a data-toggle="tab" data-target="#mainmenu"><i class="tooltips fa fa-ellipsis-h"></i></a></li>
+        <!--li class="tooltips unread" data-toggle="tooltip" title="Check Mail"><a data-toggle="tab" data-target="#emailmenu"><i class="tooltips fa fa-envelope"></i></a></li-->
+        <li class="tooltips" data-toggle="tooltip" title="Settings"><a data-toggle="tab" data-target="#settings"><i class="fa fa-cog"></i></a></li>
+        <li class="tooltips" data-toggle="tooltip" title="Log Out"><a href="{% url "logout" %}"><i class="fa fa-sign-out"></i></a></li>
+      </ul>
+
+      <div class="tab-content">
+
+        <!-- ################# MAIN MENU ################### -->
+
+        <div class="tab-pane active" id="mainmenu">
+          <ul class="nav nav-pills nav-stacked nav-quirk">
+            <li>
+              <a href=""><i class="fa fa-area-chart"></i> <span>Analysis</span></a>
+            </li>
+            <!--li><a href=""><i class="fa fa-map-marker"></i> <span>Location</span></a>
+            </li>
+            <li><a href=""><i class="fa fa-hashtag"></i> <span>Hashtags</span></a>
+            </li-->
+          </ul>
+        </div><!-- tab-pane -->
+
+        <!-- ######################## EMAIL MENU ##################### -->
+
+        <!-- #################### SETTINGS ################### -->
+
+        <div class="tab-pane" id="settings">
+          <h5 class="sidebar-title">Settings</h5>
+          <ul class="list-group list-group-settings">
+            <li class="list-group-item">
+              <small>Show pivots<span class="hasTooltip" data-content="Displays on the map the position of all pivots used for cities. The system obtains publications around these pivots. This option is only available when there is an active search by a city.">?</span></small>
+              <div class="toggle-wrapper">
+                <div class="showPivots toggle-light success"></div>
+              </div>
+            </li>
+          </ul>
+          <ul class="list-group list-group-settings">
+            <li class="list-group-item">
+              <small>Show locations<span class="hasTooltip" data-content="Locations retrieved around pivots">?</span></small>
+              <div class="toggle-wrapper">
+                <div class="showLocations toggle-light success"></div>
+              </div>
+            </li>
+          </ul>
+          <h5 class="sidebar-title">Metrics</h5>
+          <ul class="list-group list-group-settings">
+            <li class="list-group-item">
+              <h5>Instagram API queries.</h5>
+              <big>{{ mapInfo.queries_api }}</big>
+              <small>times the Instagram API was called in the last hour. Hourly limit is <strong>5.000</strong> queries.</small>
+            </li>
+            {% if  request.GET.location%}
+            <li class="list-group-item">
+              <h5>Total publications</h5>
+              <big>{{ mapInfo.total_posts }}</big>
+              <small>publications from the city of {{ request.GET.location }}</small>
+            </li>
+            <li class="list-group-item">
+              <h5>Cutting time</h5>
+              <small>{{ mapInfo.last_location_update }}</small>
+            </li>
+            {% endif %}
+            <!--li class="list-group-item">
+              <h5>Geonames API queries</h5>
+              <big>6</big>
+              <small>times the geonames API was called in the last hour. Hourly limit is <strong>2.000</strong> queries.</small><br/>
+              <big>25</big>
+              <small>times the geonames API was called in the last 24 hours. Daily limit is <strong>30.000</strong> queries.</small>
+            </li-->
+          </ul>
+          <h5 class="sidebar-title">Update categories</h5>
+          <ul class="list-group list-group-settings">
+            <li class="list-group-item">
+              <small>Update categories with associated hashtags uploading a CSV file.</small>
+              <small style="margin-top: 10px"><a href='/static/export_categories.csv'>Download</a> current categories</small>
+              <form action="{% url 'csv-import' %}" method="POST" enctype="multipart/form-data" style="margin-top: 1em">
+                {% csrf_token %}
+                <input type="file" name="file" accept=".csv"><br>
+                <input type="submit" class="btn btn-primary ml5" value="Upload">
+              </form>
+            </li>
+          </ul>
+        </div><!-- tab-pane -->
+
+
+      </div><!-- tab-content -->
+
+    </div><!-- leftpanelinner -->
+  </div><!-- leftpanel -->

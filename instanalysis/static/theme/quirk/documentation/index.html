@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Quirk Documentation</title>
+
+  <link href="assets/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+<section>
+
+  <div class="container">
+    <div class="row">
+        <div class="col-md-3">
+
+            <div class="logopanel">
+              <h1>Quirk</h1>
+            </div><!-- logopanel -->
+
+            <ul class="leftmenu">
+                <li class="active"><a href="#introduction">Introduction</a></li>
+                <li>
+                    <a href="#gettingstarted">Getting Started</a>
+                    <ul class="children">
+                        <li><a href="#htmlstructure">HTML Structure</a></li>
+                        <li><a href="#basictemplate">Basic Template</a></li>
+                    </ul>
+                </li>
+                <li><a href="#less">LESS</a></li>
+                <li><a href="#filestructure">File Structure</a></li>
+                <li><a href="#bowergrunt">Setup Quirk Template</a></li>
+                <li><a href="#running">Run Quirk Template</a></li>
+                <li><a href="#javascript">Update Dependencies</a></li>
+                <li><a href="#credits">Credits</a></li>
+                <li><a href="#changelog">Changelog</a></li>
+            </ul>
+        </div><!-- col-md-3 -->
+
+        <div class="col-md-9">
+
+            <div class="content">
+
+                <p>Quirk Admin Template Documentation by <a href="http://themepixels.com/">ThemePixels</a></p>
+
+
+                <h3 id="introduction" class="sectitle mb0">Quirk Responsive Admin Template</h3>
+                <p>Created: July 19, 2015 by: ThemePixels.com (themepixels@gmail.com)</p>
+
+                <br>
+
+                <div class="alert alert-success mb30"><p>Thank you for purchasing my theme. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form <a href="http://themeforest.net/themepixels">here</a>. Thanks so much!</p></div>
+
+                <hr><br>
+
+                <h3 id="gettingstarted" class="sectitle">Getting Started</h3>
+
+                <p>Quirk is yet another admin template built using Bootstrap and other jQuery plugins that is perfect for your next projects. It provides an easy to use user interface design and a fully responsive layout that is compatible with handheld devices such as phones and tablets. </p>
+                <p>Quirk is built to work best in the latest desktop and mobile browsers but older browsers might display differently styled, though fully functional, renderings of certain components.</p>
+
+                <p class="alert alert-info mt20"><strong>Note:</strong> Internet Explorer 8 and below are not supported in this template.</p>
+
+                <br>
+                <hr>
+                <br>
+
+                <h4 id="htmlstructure" class="sectitle">HTML Structure</h4>
+                <p>This theme is a fluid and responsive layout with two columns. The general template structure is the same throughout the template. Below are the general structures.</p>
+
+                <br>
+                <h5 class="text-primary">Main Wrapper</h5>
+                <pre>&lt;header&gt;
+  &lt;div class="headerpanel"&gt;
+    &lt;div class="logopanel"&gt; ... &lt;/div&gt;
+    &lt;div class="headerbar"&gt; ... &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/header&gt;
+&lt;section&gt;
+  &lt;div class="leftpanel"&gt; ... &lt;/div&gt;
+  &lt;div class="mainpanel"&gt;
+    &lt;div class="contentpanel"&gt;
+      all content goes here...
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</pre>
+
+                <br />
+                <h5 class="text-primary">Left Panel Structure</h5>
+                <p>This is the leftpanel structure where there are four different menus on left.</p>
+                <pre>
+&lt;div class="leftpanel"&gt;
+  &lt;div class="leftpanel-profile"&gt; ... &lt;/div&gt;
+  &lt;ul class="nav-sidebar"&gt; ... &lt;/ul&gt;
+  &lt;div class="tab-content"&gt;
+    &lt;div class="tab-pane active"&gt; the main menu... &lt;/div&gt;
+    &lt;div class="tab-pane"&gt; the email menu ... &lt;/div&gt;
+    &lt;div class="tab-pane"&gt; the contact menu ... &lt;/div&gt;
+    &lt;div class="tab-pane"&gt; the settings menu ... &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+
+                <br />
+                <h5 class="text-primary">Main Menu Navigation</h5>
+                <p>The main menu found on left and also the active shown menu by default.</p>
+                <pre>&lt;div class="tab-pane active" id="mainmenu"&lt;
+  &lt;h5 class="sidebar-title"&gt;Favorites&lt;/h5&gt;
+  &lt;ul class="nav nav-pills nav-stacked nav-quirk"&gt;
+    &lt;li&gt;&lt;a href="index.html"&gt;&lt;i class="fa fa-home"&gt;&lt;/i&gt; &lt;span&gt;Dashboard&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+    ...
+  &lt;ul&gt;
+
+  &lt;h5 class="sidebar-title"&gt;Main Menu&lt;/h5&gt;
+  &lt;ul class="nav nav-pills nav-stacked nav-quirk"&gt;
+    &lt;li class="nav-parent"&gt;
+      &lt;a href=""&lt;&lt;i class="fa fa-check-square"&gt;&lt;/i&gt; &lt;span&gt;Forms&lt;/span&gt;&lt;/a&gt;
+      &lt;ul class="children"&gt;
+        &lt;li&gt;&lt;a href="general-forms.html"&gt;Form Elements&lt;/a&gt;&lt;/li&gt;
+        ...
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    ...
+  &lt;/ul&gt;
+&lt;div&gt;&lt;!-- tab-pane --&gt;</pre>
+
+
+
+
+                <div class="alert alert-info"><strong>Note:</strong> The navigation menu only has two levels at this time. We may add up to three levels for the coming updates of this template.</div>
+
+                <br />
+                <h5 class="sectitle text-primary">Main Panel</h5>
+                <p>The main panel is compose of header, the page header and the main content of the page.</p>
+                <pre>&lt;div class="mainpanel"&gt;
+   &lt;div class="contentpanel"&gt;
+      &lt;!-- content goes here --&gt;
+   &lt;/div&gt;
+&lt;/div&gt;</pre>
+
+                <br>
+                <hr>
+                <br>
+
+                <h4 id="basictemplate" class="sectitle">Basic Template</h4>
+                <p>For the basic template, open the file <code>blank.html</code> to create a new empty page and then start adding content by adding it inside the <code>contentpanel</code>. You can refer the above structure to create your own page.</p>
+
+                <br>
+                <hr>
+                <br>
+
+                <h3 id="less" class="sectitle">LESS</h3>
+                <p>This template uses many less files and compile it into one file using Grunt to a file named quirk.css in css folder. If you have changes in the styles of this template, I recommend
+                to not change it directly to the quirk.css because this file is generated by compiling the less files. You should change it in the less files.</p>
+
+                <hr>
+                <h4 class="sectitle text-primary">Bootstrap</h4>
+                <p>We use bootstrap as the core framework of this template. If you open the file <strong>less/quirk.less</strong>, you can see that we @import the bootstrap.less instead of importing the bootstrap.css. The reason because
+                importing the bootstrap.less allows us to override the variables used in bootstrap and recompile it as part of the quirk.css when compiled using Grunt.</p>
+
+
+                <br />
+                <h4 class="sectitle text-primary">less/variables.less</h4>
+                <p>In this file, all you can see here are the variables used in this template including the variables that we override from Bootstrap. The variables listed on this file are arrange based on the section so you can easily manage what variables you need to modify. Most of the variables listed
+                here are the variables used in bootstrap that we override based on the templates needs.</p>
+
+                <br />
+                <h4 class="sectitle text-primary">less/plugins-override.less</h4>
+                <p>In this file are the style properties used from the plugins that we used and override it as part of the improvement of the styles to use in this template.</p>
+
+                <br />
+                <h4 class="sectitle text-primary">less/bootstrap-override.less</h4>
+                <p>In this file, all properties used by Bootstrap are overwriten based on the templates requirements as part of the improvements from the Boostrap styles to this templates styles.</p>
+
+                <br />
+                <h4 class="sectitle text-primary">less/quirk.less</h4>
+                <p>This is the main less file where we combine all the less files using @import to be used when compiling quirk.css</p>
+
+                <p>The rest of the less files are separated styles based on the section of this template. You can see the filenames as reference for example, table.less are styles used in tables. If you have changes on some of the section of this template, see the filename of the less file as reference.</p>
+
+
+                <br><hr><br>
+
+                <h3 id="filestructure" class="sectitle">File Structure</h3>
+
+                <p>When purchasing this template what you can see in the file structures are:</p>
+                <pre>quirk
+  /css
+    quirk.css
+  /documentation
+    /assets
+      style.css
+    index.html
+  /fonts
+    glyphicon-...
+    ...
+  /images
+    /photos
+      *.png
+      *.jpg
+    ...
+  /js
+    *.js
+  /less
+    *.less
+  /lib
+    /[*] plugin name
+      ...
+  /templates
+    *.html
+  .editorconfig
+  .gitignore
+  bower.json
+  Gruntfile.js
+  package.json</pre>
+
+              <p>If you run a command from Bower ($ bower install) and for Grunt ($ npm install) or ($ sudo npm install) for the first time, 2 additional folders will be added.</p>
+              <pre>/bower_components
+/node_modules</pre>
+
+
+                <br><hr><br>
+
+                <h3 id="bowergrunt" class="sectitle">Setup Quirk Template</h3>
+                <p class="mb20">Quirk has a few easy ways to run this template. Read through to see what suits your particular needs.</p>
+
+
+                <h4>Display in Browser</h4>
+                <p>Quirk can be viewable directly into the browser by opening any of the html files inside the /templates folder without using our Gruntfile.</p>
+
+                <br>
+
+                <h4>Running in a Local Server</h4>
+                <p>If you are using our Gruntfile, you don't have to worry about this because connecting to server is already integrated in our Gruntfile. Before that, you must first install Node, Bower and Grunt in your local machine.</p>
+
+                <br>
+
+                <h4>Installing Node</h4>
+                <p>Node.js is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.</p>
+                <p>Download the Node.js source code or a pre-built installer for your platform by going to the link: <br><a href="https://nodejs.org/download">https://nodejs.org/download</a></p>
+
+                <br>
+
+                <h4>Install Bower</h4>
+                <p>Bower works by fetching and installing packages from all over, taking care of hunting, finding, downloading, and saving the stuff you’re looking for. Bower keeps track of these packages in a manifest file, bower.json. How you use packages is up to you.</p>
+                <p>Bower is a command line utility. Install it with npm</p><br>
+
+                <pre>$ npm install -g bower</pre>
+                <br>
+                <p>Quirk has it's own dependencies found in /lib folder. All of these dependencies are installed using Bower. You can also update to the latest versions of the dependencies using Bower. Bower installs these dependencies to /bower_components folder. This folder does not yet exist upon purchasing Quirk. It will be available when running the command below.</p>
+                <br><pre>$ bower install</pre>
+
+                <br>
+
+                <p>After running the command above it will download and install all dependencies defined in bower.json to /bower_components folder.</p>
+                <p>I will not discuss other uses of Bower here. The command above is only what's needed as part of the project setup.</p>
+                <p>To learn more about other uses of Bower, please visit <a href="http://bower.io">bower.io</a></p>
+                <p>Now that you downloaded all of the dependencies, we can now proceed to installing Grunt.</p>
+
+                <br>
+
+                <h4>Install Grunt</h4>
+                <p>GruntJS is a javascript task runner. Why use a task runner? In one word: automation. The less work you have to do when performing repetitive tasks like minification, compilation, unit testing, linting, etc, the easier your job becomes. After you've configured it through a Gruntfile, a task runner can do most of that mundane work for you—and your team—with basically zero effort.</p>
+                <p>Before setting up Grunt ensure that your npm is up to date by running <code>$ npm update -g npm</code>. This might require sudo on certain systems.</p>
+
+                <p>In order to get started, you'll want to install Grunt's command line interface (CLI) globally. You may need to use sudo (for OSX, *nix, BSD etc) or run your command shell as Administrator (for Windows) to do this.</p>
+                <br><pre>$ npm install -g grunt-cli</pre><br>
+                <p>Afer installing Grunt, let us now check the file <code>package.json</code>. You can see a list of grunt plugins listed that are needed to be use in running Quirk template. You will install all of that plugins by running the command below: </p>
+                <br><pre>$ npm install</pre>
+
+
+                <br><hr><br>
+
+                <h3 id="running" class="sectitle">Run Quirk Template</h3>
+                <p>Now that you install all the dependencies and grunt task plugins, you can now run the template using the command</p>
+                <pre>$ grunt</pre>
+                <p>After running the command, it will automatically open a browser and you can now see the template running.<p>
+
+
+                <br />
+                <h3 id="javascript" class="sectitle">Update Dependencies</h3>
+                <p>This template is powered more by javascript and some of it uses css files. Disabling javascript in your browser will break the template and some of the features will not work so it is highly recommended that you make sure javascript is enabled.</p>
+                <p>The dependencies files can be found in the lib/ folder of template.</p>
+                <p>The <strong>/lib</strong> folder is generated when running the command</p>
+                <pre>$ grunt build</pre>
+                <p>If you have added some dependencies using Bower, that command will immediately run and update the /lib folder.</p>
+                <br><hr><br>
+
+                <h3 id="credits" class="sectitle">Credits</h3>
+                <p>We've used the following plugins, images, icons or other files as listed.</p>
+
+                <ul>
+                    <li><a href="http://getbootstrap.com/">Bootstrap</a></li>
+                    <li><a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome Icons</a> by Font Awesome</li>
+                    <li><a href="http://jquery.com/">jQuery</a> by John Resig</li>
+                    <li><a href="http://jqueryui.com/">jQuery UI</a></li>
+                    <li><a href="http://code.google.com/p/flot/">Flot Charts</a></li>
+                    <li><a href="http://boedesign.com/blog/2009/07/11/growl-for-jquery-gritter/">Gritter for jQuery (Growl)</a> by Jordan Boesch</li>
+                    <li><a href="http://jonthornton.github.com/jquery-timepicker/">jQuery TimePicker</a> by Jon Thornton</li>
+                    <li><a href="http://www.jquery-steps.com">jQuery Steps</a> by Rafael Staib</li>
+                    <li><a href="http://summernote.org/">Summernote</a> by Alan Hong</li>
+                    <li><a href="http://ivaynberg.github.io/select2/">Select 2</a> by ivaynberg</li>
+                    <li><a href="http://mjolnic.github.io/bootstrap-colorpicker/">Bootstrap Colorpicker</a> by mjolnic</li>
+                    <li><a href="http://www.dropzonejs.com/">Dropzone</a> by Matias Meno</li>
+                    <li><a href="http://hpneo.github.com/gmaps/">GMaps</a> by Gustavo Leon</li>
+                    <li><a href="http://datatables.net">jQuery Data Tables</a> by Allan Jardine</li>
+                    <li><a href="http://digitalbush.com">Masked Input</a> by Josh Bush</li>
+                    <li><a href="http://omnipotent.net/jquery.sparkline/">jQuery Sparkline</a></li>
+                    <li><a href="https://github.com/jzaefferer/jquery-validation">jQuery Form Validation</a> by Jorn Zaefferer</li>
+                    <li><a href="http://modernizr.com/">Modernizr</a></li>
+                    <li><a href="http://www.oesmith.co.uk/morris.js/">Morris Charts</a> by Olly Smith</li>
+                    <li><a href="http://ionicons.com/">Ionicons</a> by Ben Sperry</li>
+                    <li><a href="http://anthonyterrien.com/knob/">jQuery Knob</a> by Anthony Terrien</li>
+                    <li><a href="https://github.com/simontabor/jquery-toggles">jQuery Toggles</a> by Simon Tabor</li>
+                    <li><a href="http://erikflowers.github.io/weather-icons">Weather Icons</a> by Erik Flowers</li>
+                </ul>
+
+
+                <br><hr><br>
+                <h3 id="changelog" class="sectitle">Changelog</h3>
+
+                <h5 class="sectitle">Version 1.0</h4>
+                <ul>
+                    <li>Initial Release</li>
+                </ul>
+
+                <br><br>
+
+                <p>Once again, thank you so much for purchasing this theme. As I said at the beginning, I'd be glad to help you if you have any questions relating to this theme. No guarantees, but I'll do my best to assist. If you have a more general question relating to the themes on ThemeForest, you might consider visiting the forums and asking your question in the "Item Discussion" section.</p>
+                <br>
+                <p><a href="http://themepixels.com/">ThemePixels</a></p>
+
+            </div><!-- content -->
+
+        </div><!-- col-md-9 -->
+    </div><!-- row -->
+  </div><!-- mainwrapper -->
+
+</section>
+
+</body>
+</html>

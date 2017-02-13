@@ -1,0 +1,12 @@
+[program:update_media_%(proj_name)s]
+command=%(venv_path)s/bin/python manage.py get_publications
+directory=%(proj_path)s
+user=%(user)s
+autostart=true
+autorestart=true
+startsecs=10
+stopwaitsecs=600
+redirect_stderr=true
+stdout_logfile = %(proj_path)s/logs/update_media_worker.log
+stderr_logfile = %(proj_path)s/logs/update_media_worker_error.log
+environment=LANG="%(locale)s",LC_ALL="%(locale)s",LC_LANG="%(locale)s"

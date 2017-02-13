@@ -1,0 +1,61 @@
+    <div class="contentpanel">
+
+      <div class="row">
+        <div class="col-md-9 col-lg-9 dash-left">
+          <div class="panel mainpanelwo">
+            <div class="panel-body numbers">
+              <div class="bubbleInfo green">
+                <i class="fa fa-male" aria-hidden="true"></i>{{ mapInfo.num_authors }}</div>
+              <div class="bubbleInfo orange">
+                <i class="fa fa-picture-o" aria-hidden="true"></i>{{ mapInfo.num_publications }}</div>
+              <div class="bubbleInfo purple">
+                <i class="fa fa-hashtag" aria-hidden="true"></i>{{ mapInfo.num_hashtags }}</div>
+              <div class="bubbleInfo yellow">
+                <i class="fa fa-heart" aria-hidden="true"></i>{{ mapInfo.likes }}</div>
+            </div>
+            <div class="panel-body map">
+              <div id="map" class="map-wrapper">
+              </div>
+            </div>
+          </div><!-- panel -->
+        </div><!-- col-md-9 -->
+        <div class="col-md-3 col-lg-3 dash-right">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="panel panel-danger rightpanel">
+                <div class="panel-body inverse panel-hashtags">
+                    <table class="numberstable table table-bordered table-striped-col dataTable" role="grid" aria-describedby="dataTable1_info" id="numberstable">
+                    <thead>
+                      <tr role="row">
+                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">Hashtag</th>
+                        <th class="sorting" tabindex="0" aria-controls="dataTable1" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">Quantity</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for tag in hashtags_top_hundred %}
+                    <tr role="row" class="odd">
+                      <td class="sorting_1">
+                        {% if tag.hashtag__label|length > 10 %}
+                          <span title="#{{tag.label}}">#{{ tag.hashtag__label|slice:":10" }}...</span>
+                        {% else %}
+                          <span>#{{ tag.hashtag__label }}</span>
+                        {% endif %}
+                      </td>
+                      <td class="tright">{{ tag.count }}</td>
+                    </tr>
+                    {% empty %}
+                      <tr><td colspan="2" class="tcenter">No hashtags</td></tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+              Top 100 hashtags displayed
+            </div><!-- col-md-12 -->
+
+          </div><!-- row -->
+
+        </div><!-- col-md-3 -->
+      </div><!-- row -->
+    </div><!-- contentpanel -->

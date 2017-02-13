@@ -1,0 +1,106 @@
+<header>
+  <div class="headerpanel">
+
+    <div class="logopanel">
+      <h2><a href="/">Posteranalytics</a></h2>
+    </div><!-- logopanel -->
+    <form action="{% url 'home' %}" method="GET" id="formfilters">
+    <div class="headerbar">
+        
+            <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
+            <div class="searchpanel fleft">
+                <select id="select_search" class="bigselect" name="location" multiple="multiple">
+                    {% for city in cities %}
+                        <option>{{city.name}}</option>
+                    {% endfor %}
+                </select>
+                <span class="quotesearch">Other location? Select lat/lon and radius...</span>
+                <div class="subgroup">
+                <input type="text" class="form-control input-sm inline" placeholder="Latitude" name="latitude" value={{request.GET.latitude}}>
+                <input type="text" class="form-control input-sm inline" placeholder="Longitude" name="longitude" value="{{request.GET.longitude}}">
+                <input type="text" class="form-control input-sm inline" placeholder="750 (radius)" name="radius" value="{{ request.GET.radius }}">
+                </div>
+            </div>
+            <div class="searchpanel-srch">
+                <button class="btn btn-quirk btn-wide btn-default" id="btnOpenFilters" onclick="return openFilters()">
+                    <i class="fa fa-filter" aria-hidden="true"></i>Filters
+                </button>
+                <button class="btn btn-success btn-quirk btn-wide mr5 low" onclick="return doSearch();">Search</button>
+            </div>
+            <div class="searchpanel-right fright">
+                <div class="input-group">
+                    <input type="text" class="form-control datepicker" name="start_date" placeholder="From date" value="{{ request.GET.start_date }}">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+            </div><!-- input-group -->
+            <div class="input-group">
+                <input type="text" class="form-control datepicker" name="end_date" placeholder="To date"  value="{{ request.GET.end_date }}">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+            </div><!-- input-group -->
+        
+    </div>
+
+    <div class="filtersBar hidden">
+        <div class="closediv">
+            <i class="fa fa-times" aria-hidden="true" onclick="closeFilters()"></i>
+        </div>
+        <div class="filtersCombi" style="width: 15%">
+            <select id="filterMonth" name="month">
+                <option></option>
+                <option value="1" {% if request.GET.month == '1' %}selected{% endif %}>January</option>
+                <option value="2" {% if request.GET.month == '2' %}selected{% endif %}>February</option>
+                <option value="3" {% if request.GET.month == '3' %}selected{% endif %}>March</option>
+                <option value="4" {% if request.GET.month == '4' %}selected{% endif %}>April</option>
+                <option value="5" {% if request.GET.month == '5' %}selected{% endif %}>May</option>
+                <option value="6" {% if request.GET.month == '6' %}selected{% endif %}>June</option>
+                <option value="7" {% if request.GET.month == '7' %}selected{% endif %}>July</option>
+                <option value="8" {% if request.GET.month == '8' %}selected{% endif %}>August</option>
+                <option value="9" {% if request.GET.month == '9' %}selected{% endif %}>September</option>
+                <option value="10" {% if request.GET.month == '10' %}selected{% endif %}>October</option>
+                <option value="11" {% if request.GET.month == '11' %}selected{% endif %}>November</option>
+                <option value="12" {% if request.GET.month == '12' %}selected{% endif %}>December</option>
+            </select>
+            <select id="filterDay" name="day">
+                <option></option>
+                <option value="2" {% if request.GET.day == '2' %}selected{% endif %}>Monday</option>
+                <option value="3" {% if request.GET.day == '3' %}selected{% endif %}>Tuesday</option>
+                <option value="4" {% if request.GET.day == '4' %}selected{% endif %}>Wednesday</option>
+                <option value="5" {% if request.GET.day == '5' %}selected{% endif %}>Thursday</option>
+                <option value="6" {% if request.GET.day == '6' %}selected{% endif %}>Friday</option>
+                <option value="7" {% if request.GET.day == '7' %}selected{% endif %}>Saturday</option>
+                <option value="1" {% if request.GET.day == '1' %}selected{% endif %}>Sunday</option>
+            </select>
+            <select id="filterSlot" name="slot">
+                <option></option>
+                <option value="1" {% if request.GET.slot == '1' %}selected{% endif %}>00:00 - 06:00</option>
+                <option value="2" {% if request.GET.slot == '2' %}selected{% endif %}>06:00 - 12:00</option>
+                <option value="3" {% if request.GET.slot == '3' %}selected{% endif %}>12:00 - 18:00</option>
+                <option value="4" {% if request.GET.slot == '4' %}selected{% endif %}>18:00 - 00:00</option>
+            </select>
+        </div>
+        <div class="filtersTagsTerms fleft" style="width: 60%">
+            <select id="select_tags" class="bigselect" name="hashtag" multiple="multiple">
+                {% for tag in mapInfo.selected_hashtags %}
+                <option value="{{ tag }}" selected>#{{ tag }}</option>
+                {% endfor %}
+            <select>
+            <select id="select_categories" class="bigselect" name="category" multiple="multiple">
+                {% for category in mapInfo.all_categories %}
+                <option value="{{ category.label }}" {% if category.label in mapInfo.selected_categories %}selected{% endif %}>{{ category.label }}</option>
+                {% endfor %}
+            <select>
+        </div>
+        <div class="filtersButtons fright" style="width: 10%">
+            <button class="btn btn-quirk btn-wide btn-default">
+                <i class="fa fa-plus" aria-hidden="true"></i> Apply
+            </button>
+            <button class="btn btn-quirk btn-wide btn-default" onclick="submitExport(); return false;">
+                <i class="fa fa-download" aria-hidden="true"></i> Export 
+            </button>
+            <input type="hidden" name="export" id="exportfield"/>
+            <input type="hidden" name="showresults" id="showresults" value="{{ request.GET.showresults }}"/>
+            <input type="hidden" name="adhoc_id" id="adhoc_id" value="{{ request.GET.adhoc_id }}"/>
+        </div
+    </div>
+    </form>
+  </div><!-- header-->
+</header>

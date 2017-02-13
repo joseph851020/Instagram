@@ -1,0 +1,53 @@
+
+upstream %(proj_name)s {
+    server unix:%(proj_path)s/master/gunicorn.sock fail_timeout=0;
+}
+
+server {
+
+    listen 80;
+    #listen 443 ssl;
+    server_name %(domains_nginx)s;
+    client_max_body_size 10M;
+    keepalive_timeout    75;
+    error_log %(proj_path)s/logs/%(proj_name)s_error_nginx.log info;
+    # Deny illegal Host headers
+    if ($host !~* ^(%(domains_regex)s)$) {
+        return 444;
+    }
+
+    location / {
+        proxy_redirect      off;
+        proxy_set_header    Host                    $host;
+        proxy_set_header    X-Real-IP               $remote_addr;
+        proxy_set_header    X-Forwarded-For         $proxy_add_x_forwarded_for;
+        proxy_set_header    X-Forwarded-Protocol    $scheme;
+        proxy_pass          http://%(proj_name)s;
+
+    }
+
+    location /static/ {
+        alias %(staticfiles_path)s/;
+        autoindex on;
+        expires max;
+    }
+    
+    location /media/ {
+        alias %(media_path)s;
+        autoindex on;
+        expires max;
+    }
+
+    location /robots.txt {
+        root            %(staticfiles_path)s/;
+        access_log      off;
+        log_not_found   off;
+    }
+
+    location /favicon.ico {
+        root            %(staticfiles_path)s/img;
+        access_log      off;
+        log_not_found   off;
+    }
+
+}

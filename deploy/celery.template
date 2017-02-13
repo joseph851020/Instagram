@@ -1,0 +1,12 @@
+[program:celerybeat_%(proj_name)s]
+command=%(venv_path)s/bin/celery -A master worker -l info
+directory=%(proj_path)s
+user=%(user)s
+autostart=true
+autorestart=true
+startsecs=10
+stopwaitsecs=600
+stdout_logfile = %(proj_path)s/logs/%(proj_name)s_celery.log
+stderr_logfile = %(proj_path)s/logs/%(proj_name)s_celery_error_supervisor.log
+redirect_stderr=true
+environment=LANG="%(locale)s",LC_ALL="%(locale)s",LC_LANG="%(locale)s"

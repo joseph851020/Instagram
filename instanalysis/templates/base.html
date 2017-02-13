@@ -1,0 +1,340 @@
+{% load staticfiles %}
+{% load compress %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<link rel="shortcut icon" type="image/ico" href="{% static 'inspinia_admin/img/logo/favicon.gif' %}" />
+
+	<title>Posteranalytics</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<!-- <link href="{% static 'inspinia_admin/css/components.css' %}" rel="stylesheet"> -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link  href="http://cdn.jsdelivr.net/qtip2/2.2.1/jquery.qtip.min.css" rel="stylesheet">
+	{% compress css %}
+	  <link rel="stylesheet" href="{% static "super_popups/superpopups.css" %}" />
+	  <link rel="stylesheet" href="{% static "theme/lib/Hover/hover.css" %}">
+	  <link rel="stylesheet" href="{% static "theme/lib/select2/select2.css" %}" />
+	  <link rel="stylesheet" href="{% static "theme/lib/fontawesome/css/font-awesome.css" %}">
+	  <link rel="stylesheet" href="{% static "theme/lib/weather-icons/css/weather-icons.css" %}">
+	  <link rel="stylesheet" href="{% static "theme/lib/ionicons/css/ionicons.css" %}">
+	  <link rel="stylesheet" href="{% static "theme/lib/jquery-toggles/toggles-full.css" %}">
+	  <link rel="stylesheet" href="{% static "theme/css/quirk.css" %}">
+	  <link rel="stylesheet" href="{% static "css/gen.css" %}" />
+	  <link rel="stylesheet" href="{% static "css/custom.css" %}" />
+	{% endcompress %}
+</head>
+<body>
+	{% include "includes/header.html" %}
+	<section>
+		{% include "includes/left-panel.html" %}
+		<div class="mainpanel">
+			{% include "includes/content-panel.html" %}
+		</div>
+	</section>
+	<iframe id="my_iframe" style="display:none;"></iframe>
+	<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
+	<script src="http://cdn.jsdelivr.net/qtip2/2.2.1/jquery.qtip.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<script src="//maps.google.com/maps/api/js"></script>
+	<script src='{% static 'js/jquery.cookie.js' %}'></script>
+	<script src="{% static 'theme/lib/jquery-toggles/toggles.js' %}"></script>
+	<script>
+		var mapInfo = {{ mapInfo_json|safe }};
+		// Sometimes results come in an array?
+		if ( mapInfo.constructor === Array ) var mapInfo = mapInfo[0];
+		var location_a = "{{ request.GET.location }}";
+		var hashtag_a = "{{ request.GET.hashtag }}";
+		{% if loadingADHOC %}
+			var superpopups = {
+			    tyT: "ok",  // MANDATORY. Possible values are `ok`, `ko` and `warn`
+			    msT: "This might take a few minutes. Please wait...",  // MANDATORY
+			    autohide: 360000
+			}
+			setInterval(checkProgressADHOC, 2000);
+			function checkProgressADHOC(){
+				var url = "{% url 'api-progress' adhoc_search_id %}";
+				$.get( url, function( data ) {
+				  	if (data['ok'] && data['finished']){
+				  		location.href = data['url'] + "&showresults=1&adhoc_id={{ adhoc_search_id }}"
+				  	}
+				  	else if (data['ok'] && data['error']){
+				  		$(".topalert ").remove()
+				  		show_alert("Internal server error. The incident has been reported.", "ko")
+				  	}
+				});
+			}
+		{% endif %}
+	</script>
+	{% compress js %}
+	<script>
+		function Download(url) {
+		    document.getElementById('my_iframe').src = url;
+		};
+	  	var csrftoken = $.cookie('csrftoken');
+	
+		// Create a map object and specify the DOM element for display.
+		var map = new google.maps.Map(document.getElementById('map'), {
+			center: {lat: mapInfo.center.lat, lng: mapInfo.center.lng},
+			scrollwheel: false,
+			zoom: mapInfo.zoom
+		});
+		$(mapInfo.markers).each(function(){
+			// Create a marker and set its position.
+			var marker = new google.maps.Marker({
+				map: map,
+				position: this
+			});
+		});
+		if(mapInfo.showpivots){
+			$(mapInfo.pivots).each(function(){
+				// Create a marker and set its position.
+				// Add circle overlay and bind to marker
+				var circle = new google.maps.Circle({
+				  map: map,
+				  radius: mapInfo.radius_pivots,    
+				  fillColor: '#AA0000'
+				});
+				var marker = new google.maps.Marker({
+					map: map,
+					position: this.position,
+					icon: '{% static 'map/img/pivot.png' %}',
+					draggable: true,
+					animation: google.maps.Animation.DROP,
+					identifier: this.id,
+				});
+				circle.bindTo('center', marker, 'position');
+				google.maps.event.addListener(marker, 'dragend', function() 
+				{
+					var lat = this.getPosition().lat();
+					var lng = this.getPosition().lng();
+					var identifier = this.identifier;
+					data = {"lat": lat, "lng": lng}
+				    $.post( "/api/pivot/"+ identifier, data, function( data ) {
+					  if (!data['ok']){
+					  	alert("There has been an error changing the pivot location.")
+					  }
+					});
+				});
+			});
+		}
+		if(mapInfo.showlocations){
+			$(mapInfo.locations).each(function(){
+				// Create a marker and set its position.
+				// Add circle overlay and bind to marker
+
+				var marker = new google.maps.Marker({
+					map: map,
+					position: this,
+					icon: '{% static 'map/img/location.png' %}'
+				});
+			});
+		}
+
+	$(document).ready(function(){
+	  $("#select_search").select2({
+	  	placeholder: "Select a place...",
+	  });
+	  {% if request.GET.location != ''%}
+	  $("#select_search").select2("val", location_a);
+	  {% endif %}
+	  $("#select_categories").select2({
+	  		placeholder: "Select a category",
+	  });
+	  $("#select_tags").select2({
+	  	placeholder: "By hashtag",
+	  	ajax: {
+	  		url: '/api/hashtagSearch',
+	  		dataType: 'json',
+	  		delay: 250,
+	  		data: function (params) {
+	            return {
+	                q: params.term, // search term
+	                page: params.page
+	            };
+	        },
+	        processResults: function (data, params) {
+			  // parse the results into the format expected by Select2
+			  // since we are using custom formatting functions we do not need to
+			  // alter the remote JSON data, except to indicate that infinite
+			  // scrolling can be used
+			  params.page = params.page || 1;
+			  return {
+			    results: data.items,
+			    pagination: {
+			      more: (params.page * 30) < data.total_count
+			    }
+			  };
+			},
+			cache: true,
+	  	},
+	  	escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+	  	minimumInputLength: 1,
+	  });
+	  
+	  $("#filterMonth").select2({
+	  	placeholder: 'Month',
+	  	allowClear: true
+	  });
+	  $("#filterDay").select2({
+	  	placeholder: "Week day",
+	  	allowClear: true
+	  });
+	  $("#filterSlot").select2({
+	  	placeholder: "Time range",
+	  	allowClear: true
+	  });
+	  $(".datepicker").datepicker({dateFormat: "dd/mm/yy"});
+	  $(".headerbar .input-group-addon").click(function(){
+	  	$(this).parent().find("input").datepicker("show");
+	  })
+
+	  if(mapInfo.using_filters){
+  			console.log("Open filters");
+  			openFilters();
+  		}
+	});
+
+	function closeFilters(){
+		$(".filtersBar").addClass("hidden");
+		$("#btnOpenFilters").removeClass("active");
+	}
+	function openFilters(evt){
+		if( $("#btnOpenFilters").hasClass("active") ){
+			$(".filtersBar").addClass("hidden");
+			$("#btnOpenFilters").removeClass("active");
+		}
+		else{
+			$(".filtersBar").removeClass("hidden");
+			$("#btnOpenFilters").addClass("active");
+		}	
+		return false;
+	}
+	$('#formfilters').on('submit',function(e) {
+		e.preventDefault();
+		var is_export = $("#exportfield").val();
+		document.getElementById("formfilters").submit();
+	});
+	function submitExport(){
+		//Exports the obtained data into csv
+		$("#exportfield").val("1");
+	    $.ajax({
+            url: $("#formfilters").attr('action'),
+            type: 'GET',
+            data: $("#formfilters").serialize(),
+            success: function(result) {
+                // ... Process the result ...
+                var query = true;
+                if (result['ok']){
+                	show_alert(result['msg'], "ok")
+                	setInterval(function(){
+                		// We check the results of the exportform
+                		// when the file has been generated, we get it
+                		if (!query) return;
+                		var url = result['url'];
+                		$.get( url, function( data ) {
+                			if(data['ok'] && data['finished']){
+                				var url_file = data['url_file'];
+                				Download(url_file);
+                				$(".topalert").remove();
+                				query = false;
+                			}
+                		});
+
+                	}, 2000);
+                }
+                else{
+                	show_alert("Something went wrong...", "ko")
+                }
+            }
+        });
+		$("#exportfield").val("0");
+
+		return false;
+
+	}
+	function doSearch(){
+		//Exports the obtained data into csv
+		$("#exportfield").val("0");
+		var select_search = $("#select_search");
+		var latitude = $("input[name='latitude']").val();
+		var longitude = $("input[name='longitude']").val();
+		var start_date = $("input[name='start_date']").val();
+		var end_date = $("input[name='end_date']").val();
+		$("#showresults").val("");
+		$("#adhoc_id").val("");
+		if( select_search.val() == null && 
+			latitude == "" && longitude == "" ){
+			alert("Please, select a location or latitue and longitude");
+			return false;
+		}
+		else if ( select_search.val() == null && latitude == "" && longitude != ""){
+			alert("Please introduce a correct search criteria.");
+			return false;
+		}
+		else if ( select_search.val() == null && latitude != "" && longitude == ""){
+			alert("Please introduce a correct search criteria.");
+			return false;
+		}
+		else if ( select_search.val() == null && latitude != "" && longitude != "" && (start_date == "" || end_date == "")){
+			alert("You need to introduce a date range for adhoc searches.");
+			return false;
+		}
+		$('#formfilters').submit();
+		return false;
+	}
+
+	$('.showPivots').toggles({
+		on: mapInfo.showpivots,
+		height: 22
+	});
+	$('.showLocations').toggles({
+		on: mapInfo.showlocations,
+		height: 22
+	});
+	// Getting notified of changes, and the new state:
+	$('.showPivots').on('toggle', function(e, active) {
+		setTimeout(function(){
+			if (active) {
+				// waiting half second
+				var url = location.href + "&showpivots=1"
+				location.href = url
+			} else {
+				var url = location.href.replace("&showpivots=1", "")
+				location.href = url
+			}
+		}, 200)
+	});
+	$('.showLocations').on('toggle', function(e, active) {
+		setTimeout(function(){
+			if (active) {
+				// waiting half second
+				location.href = location.href.replace("&showlocations=0", "")
+			} else {
+				var url = location.href + "&showlocations=0"
+				location.href = url
+			}
+		}, 200)
+	});
+	</script>
+	<script src='{% static 'js/gen.js' %}'></script>
+	<script type="text/javascript" src="{% static "super_popups/superpopups.js" %}"></script>
+	<script src='{% static 'js/tooltips.js' %}'></script>
+	<script src="{% static 'theme/lib/modernizr/modernizr.js' %}"></script>
+	<script src="{% static 'theme/lib/bootstrap/js/bootstrap.js' %}"></script>
+	<script src="{% static 'theme/lib/raphael/raphael.js' %}"></script>
+	<script src="{% static 'theme/lib/flot/jquery.flot.js' %}"></script>
+	<script src="{% static 'theme/lib/flot/jquery.flot.resize.js' %}"></script>
+	<script src="{% static 'theme/lib/flot-spline/jquery.flot.spline.js' %}"></script>
+	<script src="{% static 'theme/lib/jquery-knob/jquery.knob.js' %}"></script>
+	<script src="{% static 'theme/lib/select2/select2.js' %}"></script>
+	<script src="{% static 'theme/lib/jquery-validate/jquery.validate.js' %}"></script>
+	<script src="{% static 'theme/js/quirk.js' %}"></script>
+	{% endcompress %}
+	{% block extrajs %}
+	{% endblock %}
+</body>
+</html>

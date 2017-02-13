@@ -1,0 +1,8 @@
+from __future__ import unicode_literals
+import multiprocessing
+
+bind = "unix:%(proj_path)s/master/gunicorn.sock"
+workers = %(num_workers)s
+proc_name = "%(proj_name)s"
+pid = "%(proj_path)s/master/gunicorn.pid"
+accesslog = "%(proj_path)s/logs/access.log"

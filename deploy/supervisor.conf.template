@@ -1,0 +1,10 @@
+[program:gunicorn_%(proj_name)s]
+command=%(venv_path)s/bin/gunicorn -c %(proj_path)s/master/gunicorn.conf.py master.wsgi:application
+directory=%(proj_path)s
+user=%(user)s
+autostart=true
+stdout_logfile = %(proj_path)s/logs/%(proj_name)s_supervisor
+stderr_logfile = %(proj_path)s/logs/%(proj_name)s_error_supervisor
+autorestart=true
+redirect_stderr=true
+environment=LANG="%(locale)s",LC_ALL="%(locale)s",LC_LANG="%(locale)s"

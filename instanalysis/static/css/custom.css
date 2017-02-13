@@ -1,0 +1,193 @@
+.quotesearch {
+    position: absolute;
+    right: -230px;
+    top: 23px;
+    color: #c0c0c0;
+}
+.subgroup{
+	position: absolute;
+	top: 55px;
+}
+.subgroup .form-control{
+	width: 131px;
+	border: 0;
+    color: #fff;
+    background-color: #3b4354;
+}
+#select_search{
+	width: 400px;
+	margin-top: 10px;
+}
+.searchpanel .select2-container{
+	margin-top: 10px;
+}
+.searchpanel-right{
+	width: 200px;
+	margin-top: 10px;
+	margin-right: 20px;
+}
+.searchpanel-right .form-control{
+    color: #fff;
+    background-color: #3b4354;	
+}
+.searchpanel-srch{
+	float: right;
+	position: relative;
+	padding-top: 8px;
+}
+.searchpanel-srch button{
+	position: relative;
+}
+.searchpanel-srch button{
+	display: block;
+	margin-top: 2px;
+}
+.filtersArea{
+	position: absolute;
+    top: 93px;
+    background-color: #262b36;
+    z-index: 200;
+    padding: 5px 10px 5px 10px;
+}
+.filtersArea>div{
+	float: left;
+}
+.filtersArea .select2{
+	width: 100px !important;
+	display: block;
+	margin-bottom: 2px;
+}
+.filterCat label{
+	display: inline-table;
+}
+.filterCat label:nth-child(4n):after{ 
+	content:"\A"; 
+}
+
+.numberstable td{
+	color: #000000;
+	font-size: 14px;
+}
+.mainpanelwo, .rightpanel{
+	height: 80vh;
+}
+.rightpanel{
+	max-height: 80vh;
+	overflow-y: auto;
+}
+.mainpanelwo #map{
+	height: 65vh;
+}
+.mainpanelwo .numbers{
+	height: 10vh;
+}
+#numberstable{
+	overflow-y: scroll;
+	overflow-x: hidden;
+	display: inline-table;
+}
+
+.numbers{
+	text-align: center;
+}
+.bubbleInfo{
+	display: inline-block;
+	font-size: 32px;
+	padding: 5px 10px 5px 10px;
+	margin: 0 auto;
+	color: #ffffff;
+	min-width: 150px;
+}
+.bubbleInfo>i{margin-right: 10px;}
+.bubbleInfo.green{background-color: #1C6317;}
+.bubbleInfo.purple{background-color: #D2670B;}
+.bubbleInfo.orange{background-color: #6C1B8E;}
+.bubbleInfo.yellow{background-color: #AF9C14;}
+.filtersBar{
+	position: absolute;
+	left: 0px;
+	top: 93px;
+	background-color: #51555D;
+	width: 100%;
+	padding: 5px 65px 5px 65px;
+	border-top: #000000 3px solid;
+	z-index: 2;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;;
+}
+.filtersCombi select{
+	width: 150px;
+}
+.filtersCombi .select2-container{
+	display: block;
+	margin-bottom: 2px;
+}
+.filtersCat, .filtersCombi{
+	float: left;
+	/*margin-right: 30px;*/
+}
+.filtersCat>label{
+	display: inline-table;
+	margin-bottom: 0px;
+	width: 59px;
+	margin-bottom: 10px;
+	color: #efefef;
+}
+.filtersCat{
+	width: 185px;
+	margin-top: 10px;
+}
+
+.filtersTagsTerms .select2-container{
+	width: 100% !important;
+	margin-top: 5px;
+}
+.filtersButtons{
+	margin-top: 5px;
+}
+.filtersCombi .select2{
+	width: 100% !important;
+}
+.filtersCombi, .filtersButtons .filtersTagsTerms{
+	margin-right: 5%;
+}
+.filtersButtons button{
+	float: right;
+	display: block;
+	margin-bottom: 5px;
+	clear: right;
+	background-color: #efefef;
+	width: 100%;
+}
+.filtersBar .closediv{
+	color: #ffffff;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	cursor: hand;
+	cursor: pointer;
+	font-size: 15px;
+}
+.hasTooltip{
+	width: 25px;
+	height: 15px;
+	padding: 2px 4px 2px 4px;
+	margin-left: 5px;
+	line-height: 15px;
+	border: #c0c0c0 1px solid;
+	color: #c0c0c0;
+	border-radius: 50%;
+}
+.select2-selection__clear{
+	margin-right: 10px;
+}
+.nocategories{
+	margin-top: 40px;
+	margin-left: 20px;
+	color: #efefef;
+}
+.panel-hashtags{
+	padding: 2px;
+	padding-top: 2px !important;
+	background-color: unset !important;
+}

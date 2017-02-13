@@ -1,0 +1,7 @@
+{% extends "admin/change_list.html" %}
+{% block object-tools-items %}
+    {{ block.super }}
+    <li>
+        <a href="https://api.instagram.com/oauth/authorize/?client_id=0f726187bdb949cba308ca2864785eb2&redirect_uri=http://{{ request.META.HTTP_HOST }}{% url 'instagram-api-token' %}&response_type=code&scope=public_content" class="grp-state-focus" class="addlink" target="_blank">Update Instagram API token</a>
+    </li>
+{% endblock %}
